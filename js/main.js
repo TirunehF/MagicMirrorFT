@@ -659,6 +659,28 @@ const MM = (function () {
 				return;
 			}
 
+			// Handle debug mode toggle
+			if (notification === "TOGGLE_DEBUG_MODE") {
+				const currentLogLevel = config.logLevel || ["INFO", "LOG", "WARN", "ERROR"];
+				const debugIndex = currentLogLevel.indexOf("DEBUG");
+
+				if (debugIndex === -1) {
+					// Debug not enabled, add it
+					currentLogLevel.push("DEBUG");
+					config.logLevel = currentLogLevel;
+					Log.info("Enabling DEBUG logging");
+				} else {
+					// Debug enabled, remove it
+					currentLogLevel.splice(debugIndex, 1);
+					config.logLevel = currentLogLevel;
+					Log.info("Disabling DEBUG logging");
+				}
+
+				// Update the log level
+				Log.setLogLevel(currentLogLevel);
+				Log.info("Log levels now set to:", currentLogLevel);
+			}
+
 			// Further implementation is done in the private method.
 			sendNotification(notification, payload, sender);
 		},

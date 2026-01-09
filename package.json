@@ -70,7 +70,7 @@
 		"test:watch": "vitest"
 	},
 	"lint-staged": {
-		"*": "prettier --ignore-unknown --write",
+		"*.{json,md,yml,yaml}": "prettier --write",
 		"*.js": "eslint --fix",
 		"*.css": "stylelint --fix"
 	},
