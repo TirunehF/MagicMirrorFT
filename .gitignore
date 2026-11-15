@@ -88,3 +88,7 @@ yarn.lock
 
 # Vitest temporary test files
 tests/**/.tmp/
+
+# Left behind on the mirror itself: a crash dump and Python caches
+/core
+__pycache__/
