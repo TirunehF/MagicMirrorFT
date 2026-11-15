@@ -2,6 +2,24 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## How changes reach the mirror
+
+This fork runs on a Raspberry Pi. Changes are made on another computer and
+pushed to `master`; the mirror fetches them by itself. `mm-update.sh` runs
+there from a timer every five minutes, fast-forwards the checkout and
+restarts MagicMirror through PM2 (`pm2 restart mm`). If MagicMirror does not
+answer afterwards, the previous commit comes back.
+
+- On the mirror, do not edit tracked files, and do not commit or push from
+  there. An edited tracked file stops the updates until it is reverted.
+- Some things exist only on the mirror and are not in git: `config/config.js`,
+  `css/custom.css` and the third-party modules under `modules/`. Those are
+  edited on the mirror.
+- An update that changes `package.json` or `package-lock.json` is not applied
+  automatically. On the mirror: `git pull && npm run install-mm && pm2 restart mm`.
+- `pir-tv-control.py` is started as root by a systemd service on the mirror.
+  Treat every change to it as a change to code that runs as root.
+
 ## Essential Commands
 
 ### Development
